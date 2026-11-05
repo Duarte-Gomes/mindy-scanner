@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Voltar" />
+    </ion-buttons>
+    <ion-title>Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (product.isLoading()) {
+    <div class="state"><ion-spinner name="crescent" /></div>
+  } @else if (product.error()) {
+    <div class="state"><ion-text color="danger">Sem ligação à API. Volta atrás e tenta de novo.</ion-text></div>
+  } @else if (product.value(); as p) {
+    @if (p.image_url) {
+      <div class="photo"><img [src]="p.image_url" [alt]="p.name" /></div>
+    }
+
+    <div class="ion-padding summary">
+      @if (p.brand) {
+        <p class="brand">{{ p.brand }}</p>
+      }
+      <h1>{{ p.name }}</h1>
+      @if (p.weight) {
+        <p class="weight">{{ p.weight }}</p>
+      }
+      <div class="price-row">
+        <span class="price">{{ p.price | currency: 'EUR' : 'symbol' : '1.2-2' : 'pt-PT' }}</span>
+        @if (p.stock_status || p.stock_quantity !== null) {
+          <ion-badge [color]="stockColor(p)">
+            {{ p.stock_status }}{{ p.stock_quantity !== null ? ' · ' + p.stock_quantity + ' un.' : '' }}
+          </ion-badge>
+        }
+      </div>
+
+      <dl class="details">
+        @for (d of details(); track d[0]) {
+          <div><dt>{{ d[0] }}</dt><dd>{{ d[1] }}</dd></div>
+        }
+      </dl>
+    </div>
+
+    @if (sections().length) {
+      <ion-accordion-group [value]="sections()[0].key" [multiple]="true">
+        @for (s of sections(); track s.key) {
+          <ion-accordion [value]="s.key">
+            <ion-item slot="header">
+              <ion-label>{{ s.title }}</ion-label>
+            </ion-item>
+            <div class="ion-padding rich" slot="content" [innerHTML]="s.html"></div>
+          </ion-accordion>
+        }
+      </ion-accordion-group>
+    }
+  } @else {
+    <div class="state"><ion-text color="medium">Produto não encontrado.</ion-text></div>
+  }
+</ion-content>

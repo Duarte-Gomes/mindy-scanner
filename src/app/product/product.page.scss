@@ -1,0 +1,86 @@
+.state {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.photo {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+
+  img {
+    max-height: 260px;
+    object-fit: contain;
+  }
+}
+
+.summary {
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .brand {
+    margin: 0 0 4px;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  .weight {
+    margin: 0;
+    color: var(--ion-color-medium);
+  }
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+
+  .price {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+.details {
+  margin: 0;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--ion-color-step-150, #ddd);
+  }
+
+  dt {
+    color: var(--ion-color-medium);
+  }
+
+  dd {
+    margin: 0;
+    text-align: right;
+  }
+}
+
+.rich {
+  line-height: 1.5;
+
+  ::ng-deep > :first-child {
+    margin-top: 0;
+  }
+
+  ::ng-deep > :last-child {
+    margin-bottom: 0;
+  }
+}
