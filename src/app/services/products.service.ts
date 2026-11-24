@@ -53,8 +53,8 @@ export class ProductsService {
   }
 
   /**
-   * The product with this barcode: matched on the EAN first, then on the SKU (the store's EANs
-   * are only synced when the WooCommerce keys are configured on the API).
+   * The product with this barcode: matched on the EAN first, then on the SKU (for products
+   * without an EAN).
    */
   async byCode(code: string): Promise<Product | undefined> {
     const wanted = normalize(code);
